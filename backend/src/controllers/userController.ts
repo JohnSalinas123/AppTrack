@@ -2,6 +2,7 @@ import { Request, Response} from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User, {IUser} from '../models/User';
+import { AuthenticatedRequest } from '../types/express';
 
 // register new user
 export const register = async (req: Request, res: Response): Promise<Response> => {
@@ -54,15 +55,19 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 // get user data
 export const getUser = async (req: Request, res: Response): Promise<Response> => {
 
-    const { id } = req.body
+    
 
     try {
-        const user: IUser | null = await User.findById(id).select('-password')
+        const user = (req as AuthenticatedRequest).user
+
         if (!user) {
             return res.status(404).json({message: 'User not found'});
         }
 
-        return res.json(user);
+        const {password, ...userWithoutPassword} = user.toObject();
+        console.log(userWithoutPassword); // print out user data for testing
+
+        return res.json(userWithoutPassword);
 
     } catch(error) {
         const typedEror = error as Error;
