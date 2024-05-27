@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User, { IUser } from "../models/User";
 import { AuthenticatedRequest } from "../types/express";
 import JobStatus, { IJobStatus } from "../models/JobStatus";
+import JobApplication from "../models/JobApplication";
 
 const defaultJobStatuses = [
 	{ name: "Applied" },
@@ -41,7 +42,7 @@ export const register = async (
 				user: newUser._id,
 				name: status.name,
 			});
-			return jobStatus;
+			return jobStatus.save();
 		});
 
 		await Promise.all(jobStatusPromises);
@@ -101,5 +102,29 @@ export const getUser = async (
 	} catch (error) {
 		const typedEror = error as Error;
 		return res.status(500).json({ error: typedEror.message });
+	}
+};
+
+// delete a user and all associated data
+export const deleteUser = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
+	try {
+		const user = (req as AuthenticatedRequest).user;
+		console.log(user);
+
+		// remove user job applications
+		await JobApplication.deleteMany({ user: user._id });
+
+		// remove user jobStatuses
+		await JobStatus.deleteMany({ user: user._id });
+
+		// remove user
+		await User.deleteOne({ _id: user._id });
+		return res.json({ message: "User account and data successfully deleted." });
+	} catch (error) {
+		const typedError = error as Error;
+		return res.status(500).json({ error: typedError.message });
 	}
 };
