@@ -19,7 +19,7 @@ const JobApplicationSchema: Schema = new Schema({
 	jobTitle: { type: String, required: true },
 	applicationDate: { type: Date, required: true },
 	jobDescription: { type: String, required: true },
-	statuses: [{ type: mongoose.Schema.Types.ObjectId }],
+	statuses: [{ type: mongoose.Schema.Types.ObjectId, ref: "JobStatus" }],
 });
 
 export default mongoose.model<IJobApplication>(
