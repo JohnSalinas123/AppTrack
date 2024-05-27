@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../types/express";
 import JobStatus, { IJobStatus } from "../models/JobStatus";
 
+// POST
 // add a single job status with a reference to current user
 export const addJobStatus = async (
 	req: Request,
@@ -36,6 +37,7 @@ export const addJobStatus = async (
 	}
 };
 
+// GET
 // get a user's job statuses
 export const getJobStatuses = async (
 	req: Request,
@@ -61,3 +63,11 @@ export const getJobStatuses = async (
 		return res.status(500).json({ error: typedError.message });
 	}
 };
+
+// POST
+// delete a user job status
+// TODO: deleteJobStatus: Promise<Response> => {message: "Job status successfully deleted."}
+
+// POST
+// update job status name
+// TODO: updateJobStatus: Promise<Response> => {message: "Job status successfully updated."}

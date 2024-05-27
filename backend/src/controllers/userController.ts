@@ -6,6 +6,7 @@ import { AuthenticatedRequest } from "../types/express";
 import JobStatus, { IJobStatus } from "../models/JobStatus";
 import JobApplication from "../models/JobApplication";
 
+// default job statuses for new users
 const defaultJobStatuses = [
 	{ name: "Applied" },
 	{ name: "Phone Screen" },
@@ -59,6 +60,7 @@ export const register = async (
 	}
 };
 
+// POST
 // login user
 export const login = async (req: Request, res: Response): Promise<Response> => {
 	const { email, password } = req.body;
@@ -83,6 +85,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 	}
 };
 
+// GET
 // get user data
 export const getUser = async (
 	req: Request,
@@ -105,6 +108,7 @@ export const getUser = async (
 	}
 };
 
+// POST
 // delete a user and all associated data
 export const deleteUser = async (
 	req: Request,
@@ -128,3 +132,15 @@ export const deleteUser = async (
 		return res.status(500).json({ error: typedError.message });
 	}
 };
+
+// POST
+// update user information or settings(planned)
+// TODO: updateUserSettings
+
+// POST
+// update user password. must figure out method for secure password change
+// TODO: updateUserPassword
+
+// POST
+// delete user data but not account
+// TODO: deleteUserData: Promise<Response> => {message: "User data successfully deleted"}

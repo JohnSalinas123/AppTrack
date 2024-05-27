@@ -88,3 +88,11 @@ export const getJobApplications = async (
 		return res.status(500).json({ error: typedError.message });
 	}
 };
+
+// POST
+// delete a user job application
+// TODO: deleteJobApplication: Promise<Response> => {message: "Job application successfully deleted."}
+
+// POST
+// update a user job application
+// TODO: updateJobApplication: Promise<Response> => {message: "Job application successfully updated"}
