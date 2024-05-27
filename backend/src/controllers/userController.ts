@@ -3,7 +3,21 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User, { IUser } from "../models/User";
 import { AuthenticatedRequest } from "../types/express";
+import JobStatus, { IJobStatus } from "../models/JobStatus";
 
+const defaultJobStatuses = [
+	{ name: "Applied" },
+	{ name: "Phone Screen" },
+	{ name: "Technical" },
+	{ name: "Bahavioral" },
+	{ name: "System Design" },
+	{ name: "Panel" },
+	{ name: "On-site" },
+	{ name: "Offer" },
+	{ name: "Rejected" },
+];
+
+// POST
 // register new user
 export const register = async (
 	req: Request,
@@ -11,6 +25,7 @@ export const register = async (
 ): Promise<Response> => {
 	const { email, password } = req.body;
 	try {
+		// check if the user already exists (check if email uniqueness)
 		const existingUser = await User.findOne({ email });
 		if (existingUser) {
 			return res.status(400).json({ message: "User already exists" });
@@ -19,6 +34,17 @@ export const register = async (
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const newUser: IUser = new User({ email, password: hashedPassword });
 		await newUser.save();
+
+		// create default jobStatuses for new user
+		const jobStatusPromises = defaultJobStatuses.map((status) => {
+			const jobStatus: IJobStatus = new JobStatus({
+				user: newUser._id,
+				name: status.name,
+			});
+			return jobStatus;
+		});
+
+		await Promise.all(jobStatusPromises);
 
 		const token = jwt.sign(
 			{ id: newUser._id },
