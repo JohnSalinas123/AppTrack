@@ -65,7 +65,10 @@ export const getJobApplications = async (
 		const skip = (page - 1) * limit;
 
 		const jobApplications = await JobApplication.find({ user: user._id })
-			.populate("statuses")
+			.populate({
+				path: "statuses",
+				select: "-user -__v",
+			})
 			.skip(skip)
 			.limit(limit)
 			.exec();
