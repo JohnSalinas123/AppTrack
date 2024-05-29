@@ -1,0 +1,35 @@
+nav {
+	display: flex;
+	flex-direction: row;
+	padding: 30px 30px;
+}
+
+#title-text {
+	font-size: 25px;
+	font-weight: bold;
+	color: var(--main-blue);
+}
+
+#nav-elements-list {
+	display: flex;
+	flex-direction: row;
+	list-style: none;
+	margin-left: 55px;
+	cursor: pointer;
+}
+
+.nav-element {
+	margin-right: 55px;
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#signout-container {
+	font-size: 25px;
+	font-weight: bold;
+	display: inline-block;
+	margin-left: auto;
+}
