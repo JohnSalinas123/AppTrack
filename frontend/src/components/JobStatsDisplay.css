@@ -1,0 +1,42 @@
+#job-stat-container {
+	display: flex;
+	flex-direction: row;
+	padding: 20px 45px;
+}
+
+.job-stat-element {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+	padding: 10px 20px;
+	border: 2px solid black;
+	border-radius: 2px;
+	margin-right: 5px;
+}
+
+.job-stat-name {
+	font-size: 20px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.job-stat-count {
+	font-size: 24px;
+	font-weight: bold;
+	color: var(--main-orange);
+}
+
+.triangle-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 13px;
+}
+
+.triangle {
+	height: 90%;
+	width: 40px;
+}
