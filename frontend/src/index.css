@@ -24,8 +24,10 @@ body {
 
 	--main-blue: #3e65ee;
 	--main-orange: #ff7e20;
+	--main-green: #6dad1c;
 	--main-white: #fefefe;
 	--main-off-black: #343434;
+	--main-grey: #656565;
 
 	color-scheme: light dark;
 	color: #343434;

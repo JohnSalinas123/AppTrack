@@ -1,0 +1,60 @@
+#job-app-controls {
+	display: flex;
+	flex-direction: row;
+	padding: 30px 45px;
+}
+
+#job-add-button {
+	width: 180px;
+	height: 30px;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	background-color: var(--main-green);
+	border: none;
+	border-radius: 5px;
+}
+
+#job-app-table-container {
+	padding: 0px 45px;
+}
+
+#job-table {
+	border-collapse: seperate;
+	border-spacing: 0;
+}
+
+#job-table th {
+	background-color: var(--main-blue);
+	color: white;
+	box-shadow: none;
+}
+
+#job-table th,
+#job-table td {
+	height: 60px;
+	padding: 0 15px;
+}
+
+#job-table td {
+	border-bottom: 4px solid white;
+}
+
+#job-table tbody tr:nth-child(odd) {
+	background-color: #f4f4f4;
+}
+
+#job-table tbody tr:nth-child(even) {
+	background-color: #e2e2e2;
+}
+
+input[type="checkbox"] {
+	appearance: none;
+	background-color: #fff;
+	margin: 0;
+	font: inherit;
+	width: 1em;
+	height: 1em;
+	border: 2px solid var(--main-orange);
+	border-radius: 3px;
+}
