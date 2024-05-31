@@ -6,6 +6,7 @@ import { JobApplication } from "../types/jobApplications";
 import { FaTrash } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import "./JobAppTable.css";
+import { JobStatusScroll } from "./JobStatusScroll";
 
 interface JobAppTableProps {
 	jobApplications: JobApplication[];
@@ -80,8 +81,10 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 								<td>{jobApp.jobTitle}</td>
 								<td>{jobApp.companyName}</td>
 								<td>{jobApp.dateApplied.toDateString()}</td>
-								<td>{jobApp.jobDescription}</td>
-								<td>{jobApp.jobTitle}</td>
+								<td className="descrip-cell">{jobApp.jobDescription}</td>
+								<td>
+									<JobStatusScroll jobStatuses={jobApp.statuses} />
+								</td>
 							</tr>
 						))}
 					</tbody>
