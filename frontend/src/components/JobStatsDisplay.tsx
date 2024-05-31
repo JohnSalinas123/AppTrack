@@ -11,21 +11,21 @@ export const JobStatsDisplay: React.FC<JobStatsDisplayProps> = ({
 }) => {
 	return (
 		<>
-			<ul id="job-stat-container">
+			<div id="job-stats-display">
 				{jobStats.map((stat) => (
-					<>
-						<li key={stat.jobStatName} className="job-stat-element">
+					<div key={stat.jobStatName} className="job-stat-container">
+						<div className="job-stat-element">
 							<span className="job-stat-name">
 								{stat.jobStatName || "Error"}:
 							</span>
 							<span className="job-stat-count">{stat.jobStatCount || 0}</span>
-						</li>
+						</div>
 						<div className="triangle-container">
 							<img className="triangle" src="./triangle_right.svg" />
 						</div>
-					</>
+					</div>
 				))}
-			</ul>
+			</div>
 		</>
 	);
 };
