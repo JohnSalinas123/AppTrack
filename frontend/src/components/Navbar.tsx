@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 export const Navbar = () => {
@@ -7,12 +8,12 @@ export const Navbar = () => {
 				<h1 id="title-text">AppTrack</h1>
 
 				<ul id="nav-elements-list">
-					<li className="nav-element">
-						<a>applications</a>
-					</li>
-					<li className="nav-element">
-						<a>overview</a>
-					</li>
+					<NavLink className="nav-element" to="/applications">
+						applications
+					</NavLink>
+					<NavLink className="nav-element" to="/visualization">
+						visualization
+					</NavLink>
 				</ul>
 
 				<div id="signout-container">

@@ -25,6 +25,12 @@ nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	text-decoration: none;
+	color: var(--main-grey);
+}
+
+.nav-element.active {
+	color: var(--main-orange);
 }
 
 #signout-container {
