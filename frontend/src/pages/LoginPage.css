@@ -51,7 +51,7 @@
 	border: 1px solid var(--main-off-black);
 	border-radius: 10px;
 	font-size: 16px;
-	padding: 0px 5px;
+	padding: 0px 6px;
 	display: block;
 	margin-bottom: 17px;
 }
@@ -76,10 +76,18 @@
 	height: 37px;
 	border-radius: 10px;
 	border: none;
-	color: white;
-	background-color: var(--main-orange);
+	color: var(--main-blue);
+	background-color: white;
+	border: 1px solid var(--main-off-black);
 	font-size: 20px;
 	font-weight: bold;
+	transition: 0.3s;
+}
+
+#login-submit-button:hover {
+	color: white;
+	background-color: var(--main-orange);
+	border-color: var(--main-orange);
 }
 
 #login-switch {
@@ -88,4 +96,12 @@
 	text-decoration: underline;
 	font-size: 18px;
 	font-weight: bold;
+}
+
+#login-error {
+	width: 100%;
+	color: red;
+	text-align: center;
+	margin-top: 15px;
+	font-size: 20px;
 }

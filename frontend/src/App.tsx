@@ -3,13 +3,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ApplicationPage } from "./pages/ApplicationPage";
 import { LayoutPage } from "./pages/LayoutPage";
 import { LoginPage } from "./pages/LoginPage";
-import { useState } from "react";
 import { NoPage } from "./pages/NoPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 	return (
 		<>
 			<Routes>
@@ -18,7 +15,9 @@ function App() {
 				<Route
 					path="/applications"
 					element={
-						isLoggedIn ? <LayoutPage /> : <Navigate replace to="/login" />
+						<ProtectedRoute>
+							<LayoutPage />
+						</ProtectedRoute>
 					}
 				>
 					<Route index element={<ApplicationPage />} />

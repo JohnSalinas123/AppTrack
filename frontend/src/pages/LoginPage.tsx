@@ -2,15 +2,23 @@
 import { useState } from "react";
 
 import "./LoginPage.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.withCredentials = true;
 
 export const LoginPage = () => {
 	const [loginMode, setLoginMode] = useState(true);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [errorMessage, setErrorMessage] = useState("");
+	const navigate = useNavigate();
 
 	const handleSwitchMode = () => {
 		setLoginMode(!loginMode);
+		setErrorMessage("");
 	};
 
 	const handleSubmit = async (event: React.FormEvent) => {
@@ -18,8 +26,38 @@ export const LoginPage = () => {
 		try {
 			if (loginMode) {
 				// login logic
+				const response = await axios.post("/api/users/login", {
+					email,
+					password,
+				});
+				console.log(response);
+
+				console.log(response.status === 200);
+
+				if (response.status === 200) {
+					console.log("navigate to /applications");
+					navigate("/applications", { replace: true });
+				} else {
+					setErrorMessage("Email or password incorrect.");
+				}
 			} else {
 				// sign up logic
+
+				if (password != confirmPassword) {
+					setErrorMessage("Passwords don't match.");
+					return;
+				}
+
+				const response = await axios.post("/api/users/register", {
+					email,
+					password,
+				});
+
+				if (response.status === 200) {
+					navigate("/applications", { replace: true });
+				} else {
+					setErrorMessage("Sign up failed");
+				}
 			}
 		} catch (error) {
 			console.log("Failed to login or signup", error);
@@ -50,7 +88,7 @@ export const LoginPage = () => {
 						</label>
 						<input
 							className="login-field"
-							type="password"
+							type="text"
 							id="password"
 							name="password"
 							onChange={(e) => setPassword(e.target.value)}
@@ -79,6 +117,7 @@ export const LoginPage = () => {
 						{loginMode ? "Create an account" : "Log in to existing account"}
 					</a>
 				</div>
+				<span id="login-error">{errorMessage}</span>
 			</div>
 		</>
 	);
