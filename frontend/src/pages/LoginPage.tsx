@@ -35,8 +35,7 @@ export const LoginPage = () => {
 				console.log(response.status === 200);
 
 				if (response.status === 200) {
-					console.log("navigate to /applications");
-					navigate("/applications", { replace: true });
+					navigate("/dashboard", { replace: true });
 				} else {
 					setErrorMessage("Email or password incorrect.");
 				}
@@ -54,7 +53,7 @@ export const LoginPage = () => {
 				});
 
 				if (response.status === 200) {
-					navigate("/applications", { replace: true });
+					navigate("/dashboard", { replace: true });
 				} else {
 					setErrorMessage("Sign up failed");
 				}
