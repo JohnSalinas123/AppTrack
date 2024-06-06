@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { JobStat } from "../types/jobStats";
+import "../resources/triangle_right.svg";
 import "./JobStatsDisplay.css";
+import triangleSVG from "../resources/triangle_right.svg";
 
 interface JobStatsDisplayProps {
 	jobStats: JobStat[];
@@ -21,7 +23,7 @@ export const JobStatsDisplay: React.FC<JobStatsDisplayProps> = ({
 							<span className="job-stat-count">{stat.jobStatCount || 0}</span>
 						</div>
 						<div className="triangle-container">
-							<img className="triangle" src="./triangle_right.svg" />
+							<img className="triangle" src={triangleSVG} />
 						</div>
 					</div>
 				))}
