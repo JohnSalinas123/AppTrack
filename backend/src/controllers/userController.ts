@@ -164,6 +164,40 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 };
 
 // POST
+// logout user
+export const logout = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
+	try {
+		const user = (req as AuthenticatedRequest).user;
+
+		const userLoggingOutID = user._id;
+
+		res.clearCookie("accessToken", {
+			httpOnly: true,
+			sameSite: "none",
+			secure: true,
+		});
+
+		res.clearCookie("refreshToken", {
+			httpOnly: true,
+			sameSite: "none",
+			secure: true,
+		});
+
+		// log: user logged out
+		console.log(`User ${userLoggingOutID} successfully logged in`);
+
+		return res.status(200).json({ message: "Logout successful" });
+	} catch (error: unknown) {
+		const typedError = error as Error;
+		console.log("Logout error:", typedError);
+		return res.status(500).json({ error: "An unexpected error has occured" });
+	}
+};
+
+// POST
 // refresh
 export const refreshToken = async (
 	req: Request,
