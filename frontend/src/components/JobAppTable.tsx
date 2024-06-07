@@ -58,35 +58,36 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 						</tr>
 					</thead>
 					<tbody>
-						{jobApplications.map((jobApp: JobApplication) => (
-							<tr
-								key={jobApp.dateApplied.toDateString()}
-								className="job-data-row"
-							>
-								<td>
-									<input
-										type="checkbox"
-										className="checkbox-current"
-										name="selectAlljobs"
-										value="alljobs"
-									/>
-								</td>
-								<td>
-									<FaTrash />
-								</td>
-								<td>
-									<FaRegEdit />
-								</td>
-
-								<td>{jobApp.jobTitle}</td>
-								<td>{jobApp.companyName}</td>
-								<td>{jobApp.dateApplied.toDateString()}</td>
-								<td className="descrip-cell">{jobApp.jobDescription}</td>
-								<td>
-									<JobStatusScroll jobStatuses={jobApp.statuses} />
-								</td>
-							</tr>
-						))}
+						{jobApplications.length > 0 &&
+							jobApplications.map((jobApp: JobApplication) => {
+								const appDate = new Date(jobApp.applicationDate);
+								const formattedAppDate = `${appDate.getMonth()} - ${appDate.getDay()} - ${appDate.getFullYear()}`;
+								return (
+									<tr key={jobApp._id} className="job-data-row">
+										<td>
+											<input
+												type="checkbox"
+												className="checkbox-current"
+												name="selectAlljobs"
+												value="alljobs"
+											/>
+										</td>
+										<td>
+											<FaTrash />
+										</td>
+										<td>
+											<FaRegEdit />
+										</td>
+										<td>{jobApp.jobTitle}</td>
+										<td>{jobApp.companyName}</td>toDateString
+										<td>{formattedAppDate}</td>
+										<td className="descrip-cell">{jobApp.jobDescription}</td>
+										<td>
+											<JobStatusScroll jobStatuses={jobApp.statuses} />
+										</td>
+									</tr>
+								);
+							})}
 					</tbody>
 				</table>
 			</div>
