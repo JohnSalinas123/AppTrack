@@ -19,7 +19,6 @@ export const authMiddleware = async (
 			token,
 			process.env.ACCESS_TOKEN_SECRET as string
 		) as { id: string };
-		console.log(decoded);
 
 		// find the user by id
 		const user: IUser | null = await User.findById(decoded.id);

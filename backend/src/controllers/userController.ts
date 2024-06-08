@@ -57,12 +57,44 @@ export const register = async (
 
 		await Promise.all(jobStatusPromises);
 
-		const token = jwt.sign(
-			{ id: newUser._id },
-			process.env.JWT_SECRET as string,
-			{ expiresIn: "1h" }
+		// Create access token
+		const accessToken = jwt.sign(
+			{ id: newUser._id, email: newUser.email },
+			process.env.ACCESS_TOKEN_SECRET as string,
+			{
+				expiresIn: "10m",
+			}
 		);
-		return res.status(201).json({ token });
+
+		// Create refresh token
+		const refreshToken = jwt.sign(
+			{ id: newUser._id, email: newUser.email },
+			process.env.REFRESH_TOKEN_SECRET as string,
+			{
+				expiresIn: "1d",
+			}
+		);
+
+		// Store access token in HTTP-only cookie
+		res.cookie("accessToken", accessToken, {
+			httpOnly: true,
+			sameSite: "none",
+			secure: SECURE_COOKIE_BOOL,
+			maxAge: 10 * 60 * 1000,
+		});
+
+		// Store refresh token in HTTP-only cookie
+		res.cookie("refreshToken", refreshToken, {
+			httpOnly: true,
+			sameSite: "none",
+			secure: SECURE_COOKIE_BOOL,
+			maxAge: 24 * 60 * 60 * 1000,
+		});
+
+		// log: user registered
+		console.log(`User ${newUser._id} successfully registered`);
+
+		return res.status(201).json({ message: "User successfully registered" });
 	} catch (error: unknown) {
 		const typedError = error as Error;
 		console.log("Register error:", typedError);
@@ -120,6 +152,9 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 			maxAge: 24 * 60 * 60 * 1000,
 		});
 
+		// log: user logged in
+		console.log(`User ${user._id} successfully logged in`);
+
 		return res.status(200).json({ message: "Login successful" });
 	} catch (error: unknown) {
 		const typedError = error as Error;
@@ -164,6 +199,9 @@ export const refreshToken = async (
 					maxAge: 10 * 60 * 1000,
 				});
 
+				// log: refresh token usage
+				console.log(`Refresh token used by user ${user._id}`);
+
 				return res.status(200).json({ message: "Access token refreshed" });
 			}
 		);
@@ -177,6 +215,11 @@ export const refreshToken = async (
 // POST
 // check if user is authorized
 export const chechUserAuth = (req: Request, res: Response): Response => {
+	const user = (req as AuthenticatedRequest).user;
+
+	// log: auth check passsed by user
+	console.log(`Auth checked for user ${user._id}`);
+
 	return res.status(200).json({ message: "Authenticated" });
 };
 
@@ -194,7 +237,9 @@ export const getUser = async (
 		}
 
 		const { password, __v, ...userWithoutPassword } = user.toObject();
-		console.log(userWithoutPassword); // print out user data for testing
+
+		// log: fetched user data
+		console.log(`Data fetched for user ${user._id}`);
 
 		return res.json(userWithoutPassword);
 	} catch (error) {
@@ -211,7 +256,6 @@ export const deleteUser = async (
 ): Promise<Response> => {
 	try {
 		const user = (req as AuthenticatedRequest).user;
-		console.log(user);
 
 		// remove user job applications
 		await JobApplication.deleteMany({ user: user._id });
@@ -221,6 +265,10 @@ export const deleteUser = async (
 
 		// remove user
 		await User.deleteOne({ _id: user._id });
+
+		// log: delete user account and data
+		console.log(`Deleted user ${user._id}`);
+
 		return res.json({ message: "User account and data successfully deleted." });
 	} catch (error) {
 		const typedError = error as Error;
