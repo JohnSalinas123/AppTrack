@@ -1,0 +1,120 @@
+.close-window-icon {
+	height: 35px;
+	width: 35px;
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	color: var(--main-orange);
+	transition: 0.3s ease-in-out;
+}
+
+.close-window-icon:hover {
+	transform: scale(1.1);
+}
+
+.dialog-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 999;
+}
+
+.dialog-overlay > div {
+	display: flex;
+	flex-direction: column;
+}
+
+.dialog-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	padding: 16px;
+}
+
+.dialog-panel {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background: white;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	background-color: #3e65ee;
+	color: white;
+	max-width: 425px;
+	width: 100%;
+	z-index: 1000;
+}
+
+.dialog-title {
+	font-size: 26px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.dialog-description {
+	margin-bottom: 20px;
+}
+
+.dialog-buttons {
+	display: flex;
+	gap: 20px;
+}
+
+.dialog-button {
+	background: #fc9144;
+	color: white;
+	border: none;
+	padding: 4px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 20px;
+	font-family: "Nunito", sans-serif;
+	font-weight: 500;
+}
+
+.dialog-button:hover {
+	background: var(--main-orange);
+}
+
+.form-field-container {
+	display: inline-block;
+	margin: 5px;
+}
+
+.input-label {
+	font-size: 18px;
+	display: block;
+	margin-bottom: 8px;
+}
+
+.input-text {
+	width: 300px;
+	height: 40px;
+	border: 2px solid var(--main-orange);
+	border-radius: 5px;
+	font-size: 20px;
+	padding: 5px;
+	font-family: "Nunito", sans-serif;
+	color: black;
+}
+
+.input-textarea {
+	resize: none;
+	width: 300px;
+	height: 100px;
+	padding: 5px;
+	font-size: 20px;
+	border: 2px solid var(--main-orange);
+	border-radius: 5px;
+	color: black;
+}
