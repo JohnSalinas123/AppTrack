@@ -39,3 +39,7 @@ nav {
 	display: inline-block;
 	margin-left: auto;
 }
+
+#signout-container a {
+	cursor: pointer;
+}

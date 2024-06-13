@@ -35,16 +35,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	};
 
-	const loginUser = async (email: string, password: string) => {
-		// login
-		try {
-			await axios.post("/api/users/login", { email, password });
-			navigate("/applications", { replace: true });
-		} catch (error) {
-			console.log("Failed to login", error);
-		}
-	};
-
 	const logoutUser = async () => {
 		try {
 			await axios.post("/api/users/logout");
@@ -55,7 +45,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	return (
-		<AuthContext.Provider value={{ checkAuth, loginUser, logoutUser }}>
+		<AuthContext.Provider value={{ checkAuth, logoutUser }}>
 			{children}
 		</AuthContext.Provider>
 	);

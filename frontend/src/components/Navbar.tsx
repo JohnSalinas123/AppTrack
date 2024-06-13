@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+import { useAuth } from "../hooks/useAuth";
 
 export const Navbar = () => {
+	const { logoutUser } = useAuth();
+
 	return (
 		<>
 			<nav>
@@ -17,7 +20,7 @@ export const Navbar = () => {
 				</ul>
 
 				<div id="signout-container">
-					<a>signout</a>
+					<a onClick={logoutUser}>signout</a>
 				</div>
 			</nav>
 		</>
