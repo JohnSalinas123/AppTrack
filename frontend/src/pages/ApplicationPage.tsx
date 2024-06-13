@@ -49,7 +49,10 @@ export const ApplicationPage = () => {
 	return (
 		<>
 			<JobStatsDisplay jobStats={testingJobStats} />
-			<JobAppTable jobApplications={jobApplications} />
+			<JobAppTable
+				jobApplications={jobApplications}
+				setJobApplications={setJobApplications}
+			/>
 		</>
 	);
 };

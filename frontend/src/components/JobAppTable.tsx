@@ -7,28 +7,38 @@ import { FaTrash } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import "./JobAppTable.css";
 import { JobStatusScroll } from "./JobStatusScroll";
+import { JobAddModal } from "./JobAddModal";
+import { Combobox } from "@headlessui/react";
+import { ErrorDisplay } from "./utility/ErrorDisplay";
 
 interface JobAppTableProps {
 	jobApplications: JobApplication[];
+	setJobApplications: React.Dispatch<React.SetStateAction<JobApplication[]>>;
 }
 
 export const JobAppTable: React.FC<JobAppTableProps> = ({
 	jobApplications,
+	setJobApplications,
 }) => {
 	const [searchText, setSearchText] = useState("");
+	const [showJobAddModal, setShowJobAddModal] = useState(false);
+	const [error] = useState("");
 
 	const handleJobSearchChange = (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
 		setSearchText(event.target.value);
+		console.log(searchText);
 	};
 
 	const handleJobAddClick = () => {
-		console.log(searchText);
+		console.log(showJobAddModal);
+		setShowJobAddModal(true);
 	};
 
 	return (
 		<>
+			<ErrorDisplay errorMessage={error} />
 			<div id="job-app-controls">
 				<SearchField
 					placeholderText="Search job applications..."
@@ -61,7 +71,7 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 						{jobApplications.length > 0 &&
 							jobApplications.map((jobApp: JobApplication) => {
 								const appDate = new Date(jobApp.applicationDate);
-								const formattedAppDate = `${appDate.getMonth()} - ${appDate.getDay()} - ${appDate.getFullYear()}`;
+								const formattedAppDate = `${appDate.getMonth()}/${appDate.getDay()}/${appDate.getFullYear()}`;
 								return (
 									<tr key={jobApp._id} className="job-data-row">
 										<td>
@@ -79,11 +89,12 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 											<FaRegEdit />
 										</td>
 										<td>{jobApp.jobTitle}</td>
-										<td>{jobApp.companyName}</td>toDateString
+										<td>{jobApp.companyName}</td>
 										<td>{formattedAppDate}</td>
 										<td className="descrip-cell">{jobApp.jobDescription}</td>
 										<td>
 											<JobStatusScroll jobStatuses={jobApp.statuses} />
+											<Combobox></Combobox>
 										</td>
 									</tr>
 								);
@@ -91,6 +102,11 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 					</tbody>
 				</table>
 			</div>
+			<JobAddModal
+				isOpen={showJobAddModal}
+				setIsOpen={setShowJobAddModal}
+				setJobApplications={setJobApplications}
+			/>
 		</>
 	);
 };

@@ -1,6 +1,6 @@
 interface JobStatus {
-	statusName: string;
-	statusID: number;
+	name: string;
+	_id: number;
 }
 
 export interface JobApplication {
