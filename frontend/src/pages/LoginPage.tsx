@@ -52,7 +52,7 @@ export const LoginPage = () => {
 					password,
 				});
 
-				if (response.status === 200) {
+				if (response.status === 201) {
 					navigate("/dashboard", { replace: true });
 				} else {
 					setErrorMessage("Sign up failed");
