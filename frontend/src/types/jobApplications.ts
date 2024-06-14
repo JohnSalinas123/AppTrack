@@ -1,12 +1,13 @@
 interface JobStatus {
-	statusName: string;
-	statusID: number;
+	name: string;
+	_id: number;
 }
 
 export interface JobApplication {
+	_id: number;
 	jobTitle: string;
 	companyName: string;
-	dateApplied: Date;
+	applicationDate: Date;
 	jobDescription: string;
 	statuses: JobStatus[];
 }

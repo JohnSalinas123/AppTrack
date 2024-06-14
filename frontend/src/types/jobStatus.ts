@@ -1,4 +1,4 @@
 export interface JobStatus {
-	statusName: string;
-	statusID: number;
+	name: string;
+	_id: number;
 }

@@ -5,6 +5,7 @@ import User, { IUser } from "../models/User";
 import { AuthenticatedRequest } from "../types/express";
 import JobStatus, { IJobStatus } from "../models/JobStatus";
 import JobApplication from "../models/JobApplication";
+import UserSettings, { IUserSettings } from "../models/UserSettings";
 
 // constant for secure cookies parameter (for testing)
 const SECURE_COOKIE_BOOL = true;
@@ -56,6 +57,26 @@ export const register = async (
 		});
 
 		await Promise.all(jobStatusPromises);
+
+		// fetch user's applied status
+		const appliedStatus = await JobStatus.findOne({
+			user: newUser._id,
+			name: "Applied",
+		});
+
+		console.log("USER APPLIED STATUS");
+		console.log(appliedStatus);
+
+		// create default user settings
+		const defaultUserSettings: IUserSettings = new UserSettings({
+			user: newUser._id,
+			defaultStatus: appliedStatus,
+		});
+
+		console.log("USER SETTINGS");
+		console.log(defaultUserSettings);
+
+		await defaultUserSettings.save();
 
 		// Create access token
 		const accessToken = jwt.sign(
@@ -242,6 +263,30 @@ export const refreshToken = async (
 	} catch (error: unknown) {
 		const typedError = error as Error;
 		console.log("Token refresh error:", error);
+		return res.status(500).json({ error: "An unexpected error has occured" });
+	}
+};
+
+// GET
+// get user settings
+export const getUserSettings = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
+	try {
+		const user = (req as AuthenticatedRequest).user;
+
+		// fetch settings for user
+		const userSettingsResponse = await UserSettings.findOne({
+			user: user._id,
+		}).populate("defaultStatus");
+
+		console.log(userSettingsResponse);
+
+		return res.status(200).json(userSettingsResponse);
+	} catch (error: unknown) {
+		const typedError = error as Error;
+		console.log("Fetching user settings error:", typedError);
 		return res.status(500).json({ error: "An unexpected error has occured" });
 	}
 };

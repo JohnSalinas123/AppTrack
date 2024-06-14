@@ -27,9 +27,9 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 			<div className="statuses-container-outer" ref={scrollContainerRef}>
 				<div className="statuses-container-inner">
 					{jobStatuses.map((jobStatus: JobStatus) => (
-						<React.Fragment key={jobStatus.statusID}>
+						<React.Fragment key={jobStatus._id}>
 							<div className="status-element">
-								<span>{jobStatus.statusName}</span>
+								<span>{jobStatus.name}</span>
 							</div>
 							<MdNavigateNext className="status-divider" />
 						</React.Fragment>

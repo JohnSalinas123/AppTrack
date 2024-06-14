@@ -10,7 +10,7 @@ export const addJobApplication = async (
 	req: Request,
 	res: Response
 ): Promise<Response> => {
-	const { jobTitle, companyName, applicationDate, jobDescription, statusIds } =
+	const { jobTitle, companyName, applicationDate, jobDescription, statuses } =
 		req.body;
 
 	try {
@@ -18,33 +18,22 @@ export const addJobApplication = async (
 
 		const user = (req as AuthenticatedRequest).user;
 
-		console.log(user);
-
-		// fetch JobStatus documents
-		const jobStatuses = await JobStatus.find({
-			_id: { $in: statusIds },
-			user: user._id,
-		});
-
-		console.log(jobStatuses);
-
-		// validate statusIds
-
-		// create new jobStatuses array for JobApplication
-		const jobStatusesRefs = jobStatuses.map((jobStatus) => jobStatus._id);
-
 		const newJobAplication: IJobApplication = new JobApplication({
 			user: user._id,
 			jobTitle,
 			companyName,
 			applicationDate,
 			jobDescription,
-			statuses: jobStatusesRefs,
+			statuses: statuses,
 		});
 
 		await newJobAplication.save();
 
-		return res.status(201).json(newJobAplication);
+		const populatedNewJobApplication = await newJobAplication.populate(
+			"statuses"
+		);
+
+		return res.status(201).json(populatedNewJobApplication);
 	} catch (error: unknown) {
 		const typedError = error as Error;
 		return res.status(500).json({ error: typedError.message });
