@@ -1,0 +1,35 @@
+.error-container {
+	height: 35px;
+	margin-bottom: 3px;
+}
+
+.error-display {
+	height: 35px;
+	line-height: 35px;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: red;
+	border-radius: 20px;
+	padding: 0 15px;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.text-center {
+	text-align: center;
+}

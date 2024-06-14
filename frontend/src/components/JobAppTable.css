@@ -1,7 +1,7 @@
 #job-app-controls {
 	display: flex;
 	flex-direction: row;
-	padding: 30px 45px;
+	padding: 20px 45px;
 }
 
 #job-add-button {
