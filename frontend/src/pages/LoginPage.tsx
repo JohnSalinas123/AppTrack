@@ -87,7 +87,7 @@ export const LoginPage = () => {
 						</label>
 						<input
 							className="login-field"
-							type="text"
+							type="password"
 							id="password"
 							name="password"
 							onChange={(e) => setPassword(e.target.value)}
