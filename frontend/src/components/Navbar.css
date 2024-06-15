@@ -5,7 +5,7 @@ nav {
 }
 
 #title-text {
-	font-size: 25px;
+	font-size: 28px;
 	font-weight: bold;
 	color: var(--main-blue);
 }
@@ -20,16 +20,21 @@ nav {
 
 .nav-element {
 	margin-right: 55px;
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: bold;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	text-decoration: none;
 	color: var(--main-grey);
+	transition: color 0.25s ease-in-out;
 }
 
 .nav-element.active {
+	color: var(--main-orange);
+}
+
+.nav-element:hover {
 	color: var(--main-orange);
 }
 
@@ -38,8 +43,13 @@ nav {
 	font-weight: bold;
 	display: inline-block;
 	margin-left: auto;
+	transition: color 0.25s ease-in-out;
 }
 
 #signout-container a {
 	cursor: pointer;
+}
+
+#signout-container:hover {
+	color: var(--main-blue);
 }
