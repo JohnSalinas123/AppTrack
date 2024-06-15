@@ -13,11 +13,16 @@
 	list-style: none;
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 	gap: 12px;
 	padding: 10px 20px;
-	border: 2px solid black;
 	border-radius: 2px;
 	margin-right: 5px;
+	background-color: var(--main-blue);
+	color: white;
+	min-width: 160px;
+	text-align: center;
 }
 
 .job-stat-name {
@@ -29,9 +34,11 @@
 }
 
 .job-stat-count {
+	display: inline-block;
+	vertical-align: middle;
 	font-size: 24px;
 	font-weight: bold;
-	color: var(--main-orange);
+	color: #ffab6e;
 }
 
 .triangle-container {

@@ -87,7 +87,7 @@ export const LoginPage = () => {
 						</label>
 						<input
 							className="login-field"
-							type="text"
+							type="password"
 							id="password"
 							name="password"
 							onChange={(e) => setPassword(e.target.value)}
@@ -113,7 +113,7 @@ export const LoginPage = () => {
 						</button>
 					</form>
 					<a id="login-switch" onClick={handleSwitchMode}>
-						{loginMode ? "Create an account" : "Log in to existing account"}
+						{loginMode ? "Create an account" : "Already have an account?"}
 					</a>
 				</div>
 				<span id="login-error">{errorMessage}</span>
