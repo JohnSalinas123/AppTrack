@@ -2,7 +2,7 @@
 import { JobStat } from "../types/jobStats";
 import "../resources/triangle_right.svg";
 import "./JobStatsDisplay.css";
-import triangleSVG from "../resources/triangle_right.svg";
+import triangleSVG from "../resources/triangle_right_solid.svg";
 
 interface JobStatsDisplayProps {
 	jobStats: JobStat[];

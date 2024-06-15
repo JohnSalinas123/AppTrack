@@ -18,10 +18,11 @@
 	display: block;
 	text-align: left;
 	width: 100%;
-	font-size: 28px;
-	color: var(--main-orange);
+	font-size: 30px;
+	color: white;
 	font-weight: bold;
-	margin: 32px 0px;
+	margin-top: 32px;
+	margin-bottom: 22px;
 }
 
 #auth-container {
@@ -31,9 +32,9 @@
 	justify-content: flex-start;
 	align-items: center;
 	flex-direction: column;
-	border: 1px solid black;
-	border-radius: 10px;
+	border-radius: 5px;
 	box-shadow: 6px 6px 6px #b3b3b3;
+	background-color: rgba(62, 101, 238, 0.8);
 }
 
 #login-form {
@@ -48,10 +49,10 @@
 .login-field {
 	width: 275px;
 	height: 35px;
-	border: 1px solid var(--main-off-black);
+	border: 2px solid rgba(62, 101, 238, 1);
 	border-radius: 10px;
 	font-size: 16px;
-	padding: 0px 6px;
+	padding: 0px 10px;
 	display: block;
 	margin-bottom: 17px;
 }
@@ -65,7 +66,7 @@
 	width: 100%;
 	display: block;
 	text-align: left;
-	color: var(--main-orange);
+	color: white;
 	font-weight: bold;
 	margin-bottom: 4px;
 }
@@ -76,9 +77,8 @@
 	height: 37px;
 	border-radius: 10px;
 	border: none;
-	color: var(--main-blue);
-	background-color: white;
-	border: 1px solid var(--main-off-black);
+	color: white;
+	background-color: #ff9f59;
 	font-size: 20px;
 	font-weight: bold;
 	transition: 0.3s;
@@ -92,10 +92,16 @@
 
 #login-switch {
 	margin-bottom: 23px;
-	color: var(--main-blue);
+	color: white;
 	text-decoration: underline;
 	font-size: 18px;
 	font-weight: bold;
+	cursor: pointer;
+	transition: color 0.25s ease-in-out;
+}
+
+#login-switch:hover {
+	color: #ffc195;
 }
 
 #login-error {
