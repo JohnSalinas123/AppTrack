@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import JobAddButton from "./JobAddButton";
 import SearchField from "./SearchField";
-import { JobApplication } from "../types/jobApplications";
-
-import { FaTrash } from "react-icons/fa";
-import { FaRegEdit } from "react-icons/fa";
-import "./JobAppTable.css";
 import { JobStatusScroll } from "./JobStatusScroll";
 import { JobAddModal } from "./JobAddModal";
-import { Combobox } from "@headlessui/react";
 import { ErrorDisplay } from "./utility/ErrorDisplay";
+import "./JobAppTable.css";
+
+import { JobApplication } from "../types/jobApplications";
+import { JobStatus } from "../types/jobStatus";
+
+import { FaTrash, FaRegEdit, FaSortDown } from "react-icons/fa";
+import axios from "axios";
 
 interface JobAppTableProps {
 	jobApplications: JobApplication[];
@@ -22,7 +23,24 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 }) => {
 	const [searchText, setSearchText] = useState("");
 	const [showJobAddModal, setShowJobAddModal] = useState(false);
-	const [error] = useState("");
+	const [jobStatusOptions, setJobStatusOptions] = useState<JobStatus[]>([]);
+	const [error, setError] = useState("");
+
+	useEffect(() => {
+		fetchUserJobStatuses();
+	}, []);
+
+	// fetch user's job statuses
+	const fetchUserJobStatuses = async () => {
+		try {
+			const response = await axios.get("/api/job-statuses");
+			console.log(response.data);
+			setJobStatusOptions(response.data);
+		} catch (error) {
+			console.log(error); // REMOVE
+			setError("Failed to fetch job statuses");
+		}
+	};
 
 	const handleJobSearchChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -62,7 +80,12 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 							<th></th>
 							<th>Title</th>
 							<th>Company</th>
-							<th>Data Applied</th>
+							<th>
+								<div className="flex-row flex-center">
+									<span>Data Applied</span>
+									<FaSortDown className="sort-order-toggle" />
+								</div>
+							</th>
 							<th>Description</th>
 							<th>Status</th>
 						</tr>
@@ -90,11 +113,14 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 										</td>
 										<td>{jobApp.jobTitle}</td>
 										<td>{jobApp.companyName}</td>
-										<td>{formattedAppDate}</td>
+										<td className="date-cell">{formattedAppDate}</td>
 										<td className="descrip-cell">{jobApp.jobDescription}</td>
 										<td>
-											<JobStatusScroll jobStatuses={jobApp.statuses} />
-											<Combobox></Combobox>
+											<JobStatusScroll
+												jobStatuses={jobApp.statuses}
+												jobStatusOptions={jobStatusOptions}
+												jobAppID={jobApp._id}
+											/>
 										</td>
 									</tr>
 								);
