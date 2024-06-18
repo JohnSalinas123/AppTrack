@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../types/express";
 import JobApplication, { IJobApplication } from "../models/JobApplication";
-import User, { IUser } from "../models/User";
 import JobStatus, { IJobStatus } from "../models/JobStatus";
+import mongoose from "mongoose";
 
 // POST
 // add a job application
@@ -75,6 +75,62 @@ export const getJobApplications = async (
 	} catch (error: unknown) {
 		const typedError = error as Error;
 		return res.status(500).json({ error: typedError.message });
+	}
+};
+
+// POST
+// add job status to job application
+export const addJobStatusToJobApp = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
+	const { jobStatusID, jobApplicationID } = req.body;
+
+	try {
+		const userObj = (req as AuthenticatedRequest).user;
+
+		// fetch existing job status
+		const jobStatus = await JobStatus.findOne({
+			user: userObj._id,
+			_id: jobStatusID,
+		}).lean();
+
+		// fetch existing job application
+		const jobApplication = await JobApplication.findOne({
+			user: userObj._id,
+			_id: jobApplicationID,
+		});
+
+		// validate job status and job applications
+		if (!jobStatus) {
+			console.log("Job status not found");
+			return res
+				.status(404)
+				.json({ message: "Failed to add job status to application" });
+		}
+
+		if (!jobApplication) {
+			console.log("Job application not found");
+			return res
+				.status(404)
+				.json({ message: "Failed to add job status to application" });
+		}
+
+		//add new job status to job application
+		jobApplication?.statuses.push(jobStatusID);
+		jobApplication.save();
+
+		console.log(jobStatus);
+		// respond with added job status
+		const { user, __v, ...newJobStatusAdded } = jobStatus;
+		console.log(newJobStatusAdded);
+		return res.status(201).json(newJobStatusAdded);
+	} catch (error: unknown) {
+		const typedError = error as Error;
+		console.log("Error adding job status to job app:", typedError);
+		return res
+			.status(500)
+			.json({ message: "Failed to add job status to job application." });
 	}
 };
 
