@@ -7,7 +7,7 @@ import { NoPage } from "./pages/NoPage";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AuthProvider } from "./components/auth/AuthContext";
 import { PublicRoute } from "./components/auth/PublicRoute";
-import { UserSettingProvider } from "./components/UserSettingsContext";
+import { UserSettingProvider } from "./components/auth/UserSettingsContext";
 
 function App() {
 	return (

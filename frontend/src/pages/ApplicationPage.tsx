@@ -1,4 +1,4 @@
-import { JobAppTable } from "../components/JobAppTable";
+import { JobAppTable } from "../components/apptable/JobAppTable";
 import { JobStatsDisplay } from "../components/JobStatsDisplay";
 import { JobStat } from "../types/jobStats";
 import { JobApplication } from "../types/jobApplications";

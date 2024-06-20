@@ -12,12 +12,12 @@ import {
 
 import "./JobAddModal.css";
 import { MouseEventHandler, useEffect, useState } from "react";
-import { useUserSettings } from "../hooks/useUserSettings";
-import { JobStatus } from "../types/jobStatus";
+import { useUserSettings } from "../../hooks/useUserSettings";
+import { JobStatus } from "../../types/jobStatus";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
-import { ErrorDisplay } from "./utility/ErrorDisplay";
-import { JobApplication } from "../types/jobApplications";
+import { ErrorDisplay } from "../utility/ErrorDisplay";
+import { JobApplication } from "../../types/jobApplications";
 
 interface JobAddModalProps {
 	isOpen: boolean;

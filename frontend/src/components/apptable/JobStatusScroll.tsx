@@ -2,7 +2,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useState } from "react";
 import { useEffect, useRef } from "react";
-import { JobStatus } from "../types/jobStatus";
+import { JobStatus } from "../../types/jobStatus";
 
 import { MdNavigateNext } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
@@ -71,8 +71,8 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 								className="statuses-container-inner"
 								ref={scrollContainerRef}
 							>
-								{statuses.map((jobStatus: JobStatus) => (
-									<React.Fragment key={jobStatus._id}>
+								{statuses.map((jobStatus: JobStatus, index) => (
+									<React.Fragment key={index}>
 										<div className="status-element">
 											<span>{jobStatus.name}</span>
 										</div>
