@@ -18,11 +18,12 @@
 	gap: 12px;
 	padding: 10px 20px;
 	border-radius: 2px;
-	margin-right: 5px;
+	margin-right: 1px;
 	background-color: var(--main-blue);
 	color: white;
 	min-width: 160px;
 	text-align: center;
+	box-shadow: var(--shadow-elevation-low);
 }
 
 .job-stat-name {
@@ -46,9 +47,9 @@
 	justify-content: center;
 	align-items: center;
 	margin-right: 13px;
+	width: 40px;
 }
 
 .triangle {
 	height: 90%;
-	width: 40px;
 }
