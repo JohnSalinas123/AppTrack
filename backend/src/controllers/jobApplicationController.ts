@@ -10,8 +10,7 @@ export const addJobApplication = async (
 	req: Request,
 	res: Response
 ): Promise<Response> => {
-	const { jobTitle, companyName, applicationDate, jobDescription, statuses } =
-		req.body;
+	const { title, company, appliedDate, notes, statusIds } = req.body;
 
 	try {
 		console.log(req.body);
@@ -20,22 +19,23 @@ export const addJobApplication = async (
 
 		const newJobAplication: IJobApplication = new JobApplication({
 			user: user._id,
-			jobTitle,
-			companyName,
-			applicationDate,
-			jobDescription,
-			statuses: statuses,
+			title,
+			company,
+			appliedDate,
+			notes,
+			statusIds: statusIds,
 		});
 
 		await newJobAplication.save();
 
 		const populatedNewJobApplication = await newJobAplication.populate(
-			"statuses"
+			"statusIds"
 		);
 
 		return res.status(201).json(populatedNewJobApplication);
 	} catch (error: unknown) {
 		const typedError = error as Error;
+		console.log("Failed to add application error: ", typedError);
 		return res.status(500).json({ error: typedError.message });
 	}
 };
@@ -55,7 +55,7 @@ export const getJobApplications = async (
 
 		const jobApplications = await JobApplication.find({ user: user._id })
 			.populate({
-				path: "statuses",
+				path: "statusIds",
 				select: "-user -__v",
 			})
 			.skip(skip)
@@ -117,7 +117,7 @@ export const addJobStatusToJobApp = async (
 		}
 
 		//add new job status to job application
-		jobApplication?.statuses.push(jobStatusID);
+		jobApplication?.statusIds.push(jobStatusID);
 		jobApplication.save();
 
 		console.log(jobStatus);
