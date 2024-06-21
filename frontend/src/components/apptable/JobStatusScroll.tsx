@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-mixed-spaces-and-tabs */
 import React, { useState } from "react";
 import { useEffect, useRef } from "react";
 import { JobStatus } from "../../types/jobStatus";
+import "./JobStatusScroll.css";
 
 import { MdNavigateNext } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
@@ -16,18 +15,18 @@ import {
 import axios from "axios";
 
 interface JobStatusScrollProps {
-	jobStatuses: JobStatus[];
-	jobStatusOptions: JobStatus[];
-	jobAppID: number;
+	statuses: JobStatus[];
+	statusOptions: JobStatus[];
+	applicationID: number;
 }
 
 export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
-	jobStatuses,
-	jobStatusOptions,
-	jobAppID,
+	statuses,
+	statusOptions,
+	applicationID,
 }) => {
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
-	const [statuses, setStatuses] = useState(jobStatuses);
+	const [statusObjects, setStatusObjects] = useState(statuses);
 
 	useEffect(() => {
 		const scrollContainer = scrollContainerRef.current as HTMLDivElement;
@@ -35,7 +34,7 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 		if (scrollContainer) {
 			scrollContainer.scrollLeft = scrollContainer.scrollWidth;
 		}
-	}, [statuses]);
+	}, [statusObjects]);
 
 	const handleStatusAddClick = async (
 		event: React.MouseEvent<HTMLButtonElement>,
@@ -46,7 +45,7 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 		try {
 			const response = await axios.post("/api/job-application/add-status", {
 				jobStatusID: jobStatusID,
-				jobApplicationID: jobAppID,
+				jobApplicationID: applicationID,
 			});
 
 			const addedJobStatus: JobStatus = response.data;
@@ -54,7 +53,7 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 			console.log(addedJobStatus);
 
 			// update job status state
-			setStatuses((prevStatuses) => [...prevStatuses, addedJobStatus]);
+			setStatusObjects((prevStatuses) => [...prevStatuses, addedJobStatus]);
 			close();
 		} catch (error) {
 			console.log(error);
@@ -71,14 +70,21 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 								className="statuses-container-inner"
 								ref={scrollContainerRef}
 							>
-								{statuses.map((jobStatus: JobStatus, index) => (
-									<React.Fragment key={index}>
-										<div className="status-element">
-											<span>{jobStatus.name}</span>
-										</div>
-										<MdNavigateNext className="status-divider" />
-									</React.Fragment>
-								))}
+								{statusObjects &&
+									statusObjects.map((jobStatus: JobStatus, index) => (
+										<React.Fragment key={index}>
+											<div
+												className={`status-element ${
+													index === statusObjects.length - 1
+														? "last-status-element"
+														: ""
+												}`}
+											>
+												<span>{jobStatus.name}</span>
+											</div>
+											<MdNavigateNext className="status-divider" />
+										</React.Fragment>
+									))}
 								<PopoverButton>
 									<IoIosAddCircle className="status-add" />
 								</PopoverButton>
@@ -92,17 +98,17 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 								>
 									<PopoverPanel anchor="bottom" className="add-status-panel">
 										<div className="status-options">
-											{jobStatusOptions &&
-												jobStatusOptions.map((jobStatusOption) => (
+											{statusOptions &&
+												statusOptions.map((statusOption) => (
 													<button
-														key={jobStatusOption._id}
-														value={jobStatusOption._id}
+														key={statusOption._id}
+														value={statusOption._id}
 														className="status-option"
 														onClick={(event) =>
 															handleStatusAddClick(event, close)
 														}
 													>
-														{jobStatusOption.name}
+														{statusOption.name}
 													</button>
 												))}
 										</div>
