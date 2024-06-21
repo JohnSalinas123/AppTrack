@@ -30,10 +30,10 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 	setIsOpen,
 	setJobApplications,
 }) => {
-	const [jobTitle, setJobTitle] = useState<string>("");
-	const [companyName, setCompanyName] = useState<string>("");
-	const [applicationDate, setApplicationDate] = useState<Date>(new Date());
-	const [jobDescription, setJobDescription] = useState<string>("");
+	const [title, setTitle] = useState<string>("");
+	const [company, setCompany] = useState<string>("");
+	const [appliedDate, setAppliedDate] = useState<Date>(new Date());
+	const [notes, setNotes] = useState<string>("");
 	const [statuses, setStatuses] = useState<JobStatus[]>([]);
 	const [error, setError] = useState("");
 
@@ -65,36 +65,28 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 	) => {
 		event.preventDefault();
 
-		if (
-			!jobTitle &&
-			!companyName &&
-			!applicationDate &&
-			!jobDescription &&
-			!statuses
-		) {
+		if (!title || !company || !appliedDate || !statuses) {
 			console.log("Error");
 			setError("Missing parameters");
 			return;
 		}
 
-		if (
-			jobTitle.length == 0 &&
-			companyName.length == 0 &&
-			jobDescription.length == 0 &&
-			statuses.length == 0
-		) {
-			console.log("Error");
+		if (title.length == 0 || company.length == 0 || statuses.length == 0) {
+			console.log(title.length);
+			console.log(company.length);
+			console.log(statuses.length);
+			console.log("Error length");
 			setError("Missing parameters");
 			return;
 		}
 
 		try {
 			const response = await axios.post<JobApplication>("api/job-application", {
-				jobTitle: jobTitle,
-				companyName: companyName,
-				applicationDate: applicationDate,
-				jobDescription: jobDescription,
-				statuses: statuses,
+				title: title,
+				company: company,
+				appliedDate: appliedDate,
+				notes: notes,
+				statusIds: statuses,
 			});
 
 			console.log("NEW JOB RESPONSE");
@@ -150,7 +142,7 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 									type="text"
 									className="input-text"
 									onChange={(e) => {
-										setJobTitle(e.target.value);
+										setTitle(e.target.value);
 									}}
 								/>
 							</Field>
@@ -162,7 +154,7 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 									type="text"
 									className="input-text"
 									onChange={(e) => {
-										setCompanyName(e.target.value);
+										setCompany(e.target.value);
 									}}
 								/>
 							</Field>
@@ -175,18 +167,18 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 									defaultValue={getCurrentDate()}
 									className="input-text text-center"
 									onChange={(e) => {
-										setApplicationDate(new Date(e.target.value));
+										setAppliedDate(new Date(e.target.value));
 									}}
 								/>
 							</Field>
 
 							<Field className="form-field-container">
-								<Label className="input-label">Description</Label>
+								<Label className="input-label">Notes</Label>
 								<Textarea
-									name="description"
+									name="notes"
 									className="input-textarea"
 									onChange={(e) => {
-										setJobDescription(e.target.value);
+										setNotes(e.target.value);
 									}}
 								/>
 							</Field>
