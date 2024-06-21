@@ -1,0 +1,124 @@
+.statuses-container-outer {
+	width: 300px;
+	background-color: rgba(255, 255, 255, 0.34);
+	border-radius: 15px;
+	padding: 0px 4px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(181, 181, 181, 0.75);
+	-webkit-box-shadow: inset 0px 0px 6px 6px rgba(227, 227, 227, 0.75);
+	-moz-box-shadow: inset 0px 0px 6px 6px rgba(227, 227, 227, 0.75);
+	box-shadow: inset 0px 0px 6px 6px rgba(227, 227, 227, 0.75);
+}
+
+.statuses-container-inner {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	overflow: auto;
+	white-space: nowrap;
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+
+.statuses-container-inner::-webkit-scrollbar {
+	height: 2px;
+}
+
+.statuses-container-inner::-webkit-scrollbar-thumb {
+	background-color: #fcca9c;
+	border-radius: 4px;
+}
+
+.statuses-container-inner::-webkit-scrollbar-button {
+	display: none;
+}
+
+.status-element {
+	background-color: var(--main-orange);
+	border-radius: 15px;
+	font-size: 16px;
+	padding: 0px 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	white-space: nowrap;
+}
+
+.last-status-element {
+	background-color: var(--main-blue);
+}
+
+.status-divider {
+	flex-shrink: 0;
+	color: var(--main-blue);
+}
+
+.status-add {
+	flex-shrink: 0;
+	width: 25px;
+	height: 25px;
+	color: var(--main-green);
+	cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+}
+
+.status-add:hover {
+	transform: scale(1.1);
+}
+
+.add-status-panel {
+	margin-top: 15px;
+	color: white;
+	overflow: hidden;
+	padding: 5px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #b3b3b3;
+}
+
+.status-options::-webkit-scrollbar {
+	width: 8px;
+}
+
+.status-options::-webkit-scrollbar-thumb {
+	background-color: #fcca9c;
+	border-radius: 6px;
+}
+
+.status-options::-webkit-scrollbar-track {
+	background-color: var(--nav-background);
+}
+
+.status-options::-webkit-scrollbar-button {
+	display: none;
+}
+
+.status-options {
+	text-align: center;
+	overflow-y: scroll;
+	max-height: 200px !important;
+	overflow-x: hidden;
+	padding: 5px;
+}
+
+.status-option {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 15px;
+	width: 100%;
+	padding: 3px 6px;
+	margin-bottom: 5px;
+	background-color: var(--main-orange);
+	cursor: pointer;
+	transition: transform 0.1s ease-in-out;
+}
+
+.status-option:hover {
+	transform: scale(1.05);
+}
