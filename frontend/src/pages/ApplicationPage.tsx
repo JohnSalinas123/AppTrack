@@ -30,21 +30,26 @@ const testingJobStats: JobStat[] = [
 
 export const ApplicationPage = () => {
 	const [jobApplications, setJobApplications] = useState<JobApplication[]>([]);
+	const [totalPages, setTotalPages] = useState<number>(1);
+	const [page, setPage] = useState<number>(1);
 
 	useEffect(() => {
-		fetchJobApplications(); // fetch jobAplications
-	}, []);
+		const fetchJobApplications = async () => {
+			try {
+				const response = await axios.get(`/api/job-application?page=${page}`);
+				console.log(response.data);
+				const jobApps = response.data.jobApplications;
+				const totalPages = response.data.totalPages;
+				setJobApplications(jobApps);
+				setTotalPages(totalPages);
+			} catch (error) {
+				console.log(error); // REMOVE
+				console.log("Failed to fetch job applications");
+			}
+		};
 
-	const fetchJobApplications = async () => {
-		try {
-			const response = await axios.get("/api/job-application?page=1");
-			console.log(response.data.jobApplications);
-			setJobApplications(response.data.jobApplications);
-		} catch (error) {
-			console.log(error); // REMOVE
-			console.log("Failed to fetch job applications");
-		}
-	};
+		fetchJobApplications(); // fetch job applications
+	}, [page]);
 
 	return (
 		<>
@@ -52,6 +57,9 @@ export const ApplicationPage = () => {
 			<JobAppTable
 				jobApplications={jobApplications}
 				setJobApplications={setJobApplications}
+				page={page}
+				setPage={setPage}
+				totalPages={totalPages}
 			/>
 		</>
 	);
