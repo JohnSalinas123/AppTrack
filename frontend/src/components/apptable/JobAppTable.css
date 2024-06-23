@@ -23,6 +23,7 @@
 	flex-shrink: 0;
 	border-radius: 10px;
 	box-shadow: var(--shadow-elevation-medium);
+	table-layout: fixed;
 }
 
 #job-table thead tr th:first-child {
@@ -50,9 +51,10 @@
 }
 
 #job-table td {
-	border-bottom: 4px solid white;
+	height: 52px;
 	padding: 5px 15px;
 	text-align: center;
+	border-bottom: 4px solid white;
 }
 
 #job-table tbody tr:last-child td {
@@ -85,7 +87,79 @@ input[type="checkbox"] {
 
 .title-cell {
 	max-width: 250px;
+	min-width: 250px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.company-cell {
+	max-width: 150px;
+	min-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.page-controls {
+	display: flex;
+	flex-direction: row;
+	margin-top: 12px;
+	gap: 5px;
+	font-size: 20px;
+}
+
+.page-button {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	cursor: pointer;
+	border-radius: 5px;
+	color: var(--main-orange);
+	transition: color, background-color 0.3s ease-in-out;
+	border: 1px solid black;
+}
+
+.page-button:hover {
+	background-color: var(--main-orange);
+	color: white;
+}
+
+.page-button svg {
+	width: 22px;
+	height: 22px;
+}
+
+.page-display-box {
+	height: 40px;
+	font-size: 20px;
+	gap: 15px;
+}
+
+.page-input {
+	width: 60px;
+	height: 40px;
+	border: 1px solid black;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.page-total {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.page-input::-webkit-outer-spin-button,
+.page-input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.page-input:hover {
+	overflow: hidden;
 }
