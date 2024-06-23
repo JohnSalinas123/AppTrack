@@ -47,7 +47,7 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 
 	// set new job form with default status
 	const setDefaultJobStatus = (defaultJobStatus: JobStatus) => {
-		setStatuses((prevStatuses) => [...prevStatuses, defaultJobStatus]);
+		setStatuses((prevStatuses) => [defaultJobStatus, ...prevStatuses]);
 	};
 
 	// get current date for date field
@@ -98,7 +98,7 @@ export const JobAddModal: React.FC<JobAddModalProps> = ({
 				// add new job app to job table
 				setJobApplications((prevJobApplications) => {
 					const newJobApplication = response.data;
-					return [...prevJobApplications, newJobApplication];
+					return [newJobApplication, ...prevJobApplications];
 				});
 			}
 		} catch (error) {
