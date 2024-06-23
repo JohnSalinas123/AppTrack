@@ -26,15 +26,16 @@ export const JobStatusScroll: React.FC<JobStatusScrollProps> = ({
 	applicationID,
 }) => {
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
-	const [statusObjects, setStatusObjects] = useState(statuses);
+	const [statusObjects, setStatusObjects] = useState<JobStatus[]>([]);
 
 	useEffect(() => {
+		setStatusObjects(statuses);
 		const scrollContainer = scrollContainerRef.current as HTMLDivElement;
 
 		if (scrollContainer) {
 			scrollContainer.scrollLeft = scrollContainer.scrollWidth;
 		}
-	}, [statusObjects]);
+	}, [statusObjects, statuses]);
 
 	const handleStatusAddClick = async (
 		event: React.MouseEvent<HTMLButtonElement>,
