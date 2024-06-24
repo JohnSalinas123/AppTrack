@@ -103,8 +103,8 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 						</th>
 						<th></th>
 						<th></th>
-						<th className="title-cell">Title</th>
-						<th className="company-cell">Company</th>
+						<th>Title</th>
+						<th>Company</th>
 						<th>
 							<div className="flex-row flex-center">
 								<span>Data Applied</span>
@@ -140,7 +140,14 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 										<td>
 											<FaRegEdit />
 										</td>
-										<td className="title-cell">{jobApp.title}</td>
+										<td className="title-cell">
+											<div className="title-cell flex-center">
+												<div className="tooltip">
+													<div className="tooltip-main">{jobApp.title}</div>
+													<span className="tooltiptext">{jobApp.title}</span>
+												</div>
+											</div>
+										</td>
 										<td className="company-cell">{jobApp.company}</td>
 										<td className="date-cell">{formattedAppDate}</td>
 										<td className="notes-cell">
