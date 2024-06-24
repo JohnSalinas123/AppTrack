@@ -18,6 +18,7 @@ import {
 import axios from "axios";
 import { AppNotesButton } from "./AppNotesButton";
 import { JobStatusScroll } from "./JobStatusScroll";
+import { TooltipText } from "../utility/TooltipText";
 
 interface JobAppTableProps {
 	jobApplications: JobApplication[];
@@ -141,14 +142,11 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 											<FaRegEdit />
 										</td>
 										<td className="title-cell">
-											<div className="title-cell flex-center">
-												<div className="tooltip">
-													<div className="tooltip-main">{jobApp.title}</div>
-													<span className="tooltiptext">{jobApp.title}</span>
-												</div>
-											</div>
+											<TooltipText text={jobApp.title} />
 										</td>
-										<td className="company-cell">{jobApp.company}</td>
+										<td className="company-cell">
+											<TooltipText text={jobApp.company} />
+										</td>
 										<td className="date-cell">{formattedAppDate}</td>
 										<td className="notes-cell">
 											<AppNotesButton notes={jobApp.notes} />

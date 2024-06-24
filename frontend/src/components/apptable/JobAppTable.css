@@ -1,7 +1,7 @@
 #job-app-controls {
 	display: flex;
 	flex-direction: row;
-	padding: 20px 45px;
+	margin: 20px 45px;
 }
 
 #job-add-button {
@@ -17,8 +17,6 @@
 }
 
 #job-table {
-	border-collapse: seperate;
-	border-spacing: 0;
 	font-size: 18px;
 	flex-shrink: 0;
 	border-radius: 10px;
@@ -89,6 +87,9 @@ input[type="checkbox"] {
 .title-cell {
 	max-width: 250px;
 	min-width: 250px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .company-cell {
@@ -102,7 +103,7 @@ input[type="checkbox"] {
 .page-controls {
 	display: flex;
 	flex-direction: row;
-	margin-top: 12px;
+	margin: 12px;
 	gap: 5px;
 	font-size: 20px;
 }

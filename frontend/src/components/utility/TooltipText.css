@@ -1,0 +1,15 @@
+.tooltip-button {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.tooltip-panel {
+	background-color: var(--main-orange);
+	color: white;
+	padding: 5px 10px;
+	border-radius: 20px;
+	max-width: 120px;
+	text-align: center;
+}
