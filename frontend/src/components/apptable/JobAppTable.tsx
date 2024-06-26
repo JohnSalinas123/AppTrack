@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import JobAddButton from "./JobAddButton";
 import SearchField from "../input/SearchField";
 import { JobAddModal } from "./JobAddModal";
@@ -81,6 +81,43 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 		setPage(pageNumber);
 	};
 
+	// delete a job application
+	const handleDeleteApp: MouseEventHandler<HTMLButtonElement> = async (
+		event: React.MouseEvent<HTMLElement>
+	) => {
+		event?.preventDefault();
+
+		const jobAppID = (event.currentTarget as HTMLButtonElement).value;
+		console.log(jobAppID);
+
+		if (!jobAppID || jobAppID.length == 0) {
+			console.log("Error deleting an application");
+			setError("Error deleting an application");
+			return;
+		}
+
+		try {
+			const response = await axios.delete(`api/job-application/${jobAppID}`);
+
+			if (response.status == 200) {
+				console.log("Job application successfully deleted");
+
+				console.log(response.data._id);
+
+				setJobApplications((prevJobApplications) =>
+					prevJobApplications.filter(
+						(jobApp) => jobApp._id !== response.data._id
+					)
+				);
+
+				setError("");
+			}
+		} catch (error) {
+			console.log("Failed to delete job application");
+			setError("Failed to delete job application");
+		}
+	};
+
 	return (
 		<>
 			<ErrorDisplay errorMessage={error} />
@@ -136,7 +173,15 @@ export const JobAppTable: React.FC<JobAppTableProps> = ({
 											/>
 										</td>
 										<td>
-											<FaTrash />
+											<div className="flex-center">
+												<button
+													className="hover-orange"
+													value={jobApp._id}
+													onClick={handleDeleteApp}
+												>
+													<FaTrash />
+												</button>
+											</div>
 										</td>
 										<td>
 											<FaRegEdit />

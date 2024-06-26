@@ -137,6 +137,89 @@ export const addJobStatusToJobApp = async (
 // POST
 // delete a user job application
 // TODO: deleteJobApplication: Promise<Response> => {message: "Job application successfully deleted."}
+export const deleteJobApplication = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
+	const jobApplicationID = req.params.id;
+
+	if (!jobApplicationID || jobApplicationID.length == 0) {
+		return res.status(400).json({ message: "Missing parameters" });
+	}
+
+	try {
+		console.log(req.body);
+
+		const userObj = (req as AuthenticatedRequest).user;
+
+		// find existing job application
+		const existingJobApp = await JobApplication.findOne({
+			user: userObj._id,
+			_id: jobApplicationID,
+		});
+
+		if (!existingJobApp) {
+			return res.status(404).json({ message: "Job application not found" });
+		}
+
+		// delete job application
+		await JobApplication.deleteOne({
+			user: userObj._id,
+			_id: jobApplicationID,
+		});
+
+		// log: deleted job application
+		console.log(
+			`Deleted job application ${jobApplicationID} for user ${userObj._id}`
+		);
+
+		return res.status(200).json({
+			message: "Job application successfully deleted.",
+			_id: existingJobApp._id,
+		});
+	} catch (error) {
+		const typedError = error as Error;
+		return res.status(500).json({ error: typedError.message });
+	}
+};
+
+// POST
+// delete multiple user job applications at a time
+// TODO: deleteManyJobApplications: Promise<Response> => {message: "Job applications successfully deleted."}
+export const deleteManyJobApplications = async (
+	req: Request,
+	res: Response
+): Promise<Response> => {
+	const { jobApplicationIDArray } = req.body;
+
+	if (!jobApplicationIDArray || jobApplicationIDArray.length == 0) {
+		res.status(400).json({ message: "Missing parameters" });
+	}
+
+	try {
+		console.log(req.body);
+
+		const userObj = (req as AuthenticatedRequest).user;
+
+		// find existing job applications and delete
+		const result = await JobApplication.deleteMany({
+			_id: { $in: jobApplicationIDArray },
+			user: userObj._id,
+		});
+
+		// log: deleted job application
+		console.log(
+			`Deleted ${result.deletedCount} job applications for user ${userObj._id}`
+		);
+
+		return res
+			.status(200)
+			.json({ message: "Job applications successfully deleted." });
+	} catch (error) {
+		const typedError = error as Error;
+		return res.status(500).json({ error: typedError.message });
+	}
+};
 
 // POST
 // update a user job application

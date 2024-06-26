@@ -33,3 +33,11 @@
 .text-center {
 	text-align: center;
 }
+
+.hover-orange {
+	transition: color 0.2s ease-in-out;
+}
+
+.hover-orange:hover {
+	color: var(--main-orange);
+}
