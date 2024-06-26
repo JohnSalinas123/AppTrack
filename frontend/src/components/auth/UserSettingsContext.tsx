@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import { JobStatus } from "../types/jobStatus";
+import { JobStatus } from "../../types/jobStatus";
 import axios from "axios";
-import { UserSettingsContextProps } from "../types/userSettingsContext";
+import { UserSettingsContextProps } from "../../types/userSettingsContext";
 
 export const UserSettingsContext = createContext<
 	UserSettingsContextProps | undefined

@@ -15,7 +15,7 @@ const defaultJobStatuses = [
 	{ name: "Applied" },
 	{ name: "Phone Screen" },
 	{ name: "Technical" },
-	{ name: "Bahavioral" },
+	{ name: "Behavioral" },
 	{ name: "System Design" },
 	{ name: "Panel" },
 	{ name: "On-site" },
